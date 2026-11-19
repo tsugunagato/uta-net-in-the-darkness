@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Uta-Net in the Darkness — engine fixture</title>
+<!--
+  エンジンの動作確認用ページ。歌ネットで実際に使われている書き方を再現している。
+  リポジトリのルートで `python3 -m http.server` などを立ててから /test/fixture.html を開く。
+  ?off を付けるとエンジンを起動しない（変換前の見た目）。
+-->
+<link rel="stylesheet" href="../src/content.css" data-utadark-own="css">
+<style>
+  :root { --bs-white: #fff; --bs-dark: #212529; --bs-primary-rgb: 13, 110, 253; --brand: #1d2088; }
+  body { margin: 0; font: 16px/1.5 sans-serif; background-color: #fff; color: #212529; }
+  a { color: #0d6efd; }
+  .navbar { background: var(--brand); color: #fff; padding: 8px 16px; }
+  .navbar a { color: #fff; }
+  .sub-nav { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 6px 16px; }
+  .card { background: var(--bs-white); border: 1px solid rgba(0,0,0,.125); box-shadow: 0 2px 4px rgba(0,0,0,.1); margin: 12px; padding: 12px; }
+  .badge { background-color: rgba(var(--bs-primary-rgb), 1); color: #fff; padding: 2px 6px; border-radius: 4px; }
+  .muted { color: #999; }
+  .grad { background-image: linear-gradient(#ffffff, #e9ecef); padding: 12px; }
+  .bg-white { background-color: #fff !important; }
+  .btn-outline-dark { color: #212529; border: 1px solid #212529; background: transparent; padding: 4px 10px; }
+  .btn-outline-dark:hover { color: #fff; background-color: #212529; }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { background-color: #fff3cd; } 100% { background-color: #fff; } }
+  @media (min-width: 768px) { .wide-only { background: #e7f1ff; border-left: 4px solid #0d6efd; padding: 8px; } }
+  @supports (display: grid) { .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #fafafa; } }
+  .title { border-bottom: 2px solid #c00; color: #c00; }
+  #kashi_area { font-size: 16px; line-height: 24px; }
+</style>
+</head>
+<body>
+  <div class="navbar"><a href="#">ホーム</a> · <a href="#">ランキング</a></div>
+  <div class="sub-nav"><a href="#">ギターコード</a> <span class="muted">補足テキスト</span></div>
+
+  <div class="card">
+    <h3 class="title">カード（var(--bs-white) 背景）</h3>
+    <p>本文テキスト <span class="badge">NEW</span> <a href="#">リンク</a></p>
+    <button class="btn-outline-dark">ボタン</button>
+    <div class="grad">グラデーション背景</div>
+  </div>
+
+  <div class="card bg-white pulse">!important の .bg-white と @keyframes</div>
+  <div class="card wide-only">@media 内のルール</div>
+  <div class="card grid"><div>@supports</div><div>内のルール</div></div>
+
+  <div class="card" style="background-color:#fffbe6;color:#7a5c00;border-color:#ffe58f">インライン style（黄色の注意書き）</div>
+
+  <table class="card" bgcolor="#ffffff" border="1" bordercolor="#cccccc" cellpadding="6">
+    <tr bgcolor="#e6f0ff"><td>旧ページの bgcolor</td><td bgcolor="ffffcc">bgcolor="ffffcc"（# なし）</td></tr>
+    <tr><td><font color="#000080">font color="#000080"</font></td><td><font color="red">font color="red"</font></td></tr>
+  </table>
+
+  <div class="card">
+    <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#333"/></svg>
+    SVG の fill 属性
+  </div>
+
+  <div class="card">
+    <h3>歌詞</h3>
+    <div id="kashi_area">一番の一行目<br>一番の二行目<br>一番の三行目<br>一番の四行目<br><br>二番の一行目<br>二番の二行目<br>二番の三行目<br>二番の四行目<br><br>三番の一行目<br>三番の二行目<br>三番の三行目<br>三番の四行目<br><br>四番の一行目<br>四番の二行目<br>四番の三行目<br>四番の四行目<br><br>五番の一行目<br>五番の二行目<br>五番の三行目<br>五番の四行目<br><br>六番の一行目<br>六番の二行目<br>六番の三行目<br>六番の四行目<br><br>大サビの一行目<br>大サビの二行目<br>大サビの三行目<br>大サビの四行目<br><br>最後の一行目<br>最後の二行目<br>最後の三行目<br>最後の四行目</div>
+  </div>
+
+  <div class="card" id="dynamic">（ここに後から要素とスタイルを追加）</div>
+
+  <script src="../src/settings.js"></script>
+  <script src="../src/color.js"></script>
+  <script src="../src/engine.js"></script>
+  <script src="../src/lyrics.js"></script>
+  <script>
+    if (!location.search.includes('off')) {
+      document.documentElement.setAttribute('data-utadark', 'on');
+      UtaDarkEngine.start();
+      UtaDarkLyrics.setMode(new URLSearchParams(location.search).get('cols') || 'auto');
+    }
+    // 動的追加: 後から入る <style> と style 属性つき要素も変換されるか
+    setTimeout(() => {
+      const st = document.createElement('style');
+      st.textContent = '.late { background:#fff0f6; color:#c41d7f; border:1px solid #ffadd2; padding:6px }';
+      document.head.appendChild(st);
+      document.getElementById('dynamic').insertAdjacentHTML('beforeend',
+        '<div class="late">後から追加された &lt;style&gt;</div><div style="background:#f6ffed;color:#135200;padding:6px">後から追加された style 属性</div>');
+    }, 300);
+  </script>
+</body>
+</html>

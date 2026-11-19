@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Uta-Net in the Darkness",
+  "version": "2.0.0",
+  "description": "歌ネット（uta-net.com）をダークモードで表示し、長い歌詞を2〜3列に段組みします。歌ネットとは無関係の非公式拡張機能です。",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Uta-Net in the Darkness",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "scripts": ["src/settings.js", "src/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.uta-net.com/*"],
+      "js": ["src/settings.js", "src/color.js", "src/engine.js", "src/lyrics.js", "src/main.js"],
+      "css": ["src/content.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "commands": {
+    "toggle-dark": {
+      "suggested_key": { "default": "Alt+Shift+D" },
+      "description": "ダークモードのオン/オフ"
+    },
+    "cycle-columns": {
+      "suggested_key": { "default": "Alt+Shift+L" },
+      "description": "歌詞の段組みを切り替え（オフ → 自動 → 2列 → 3列）"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{5aa18d1d-9dc2-4241-9202-e41f832e0344}",
+      "strict_min_version": "121.0"
+    }
+  }
+}

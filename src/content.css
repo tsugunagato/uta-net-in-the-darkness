@@ -1,0 +1,87 @@
+/*
+ * 静的に読み込む CSS。
+ * サイト本体の色はエンジン（engine.js）が自動生成するので、ここに置くのは
+ *   - 下地（エンジンが動く前・CSS が何も指定していない部分）
+ *   - 自動変換ではうまくいかない箇所の個別調整
+ *   - 歌詞の段組み
+ * だけ。すべて html の属性で有効/無効を切り替える。
+ */
+
+/* ===== 下地 ===== */
+@media screen {
+  html[data-utadark="on"] {
+    color-scheme: dark; /* スクロールバーやフォーム部品の既定表示をダークに */
+  }
+
+  /* 詳細度 0。サイト側の指定（とそのダーク版）があればそちらが勝つ */
+  :where(html[data-utadark="on"]) {
+    background-color: #171717;
+    color: #e0e0e0;
+  }
+  :where(html[data-utadark="on"]) :where(:link) { color: #8ab4f8; }
+  :where(html[data-utadark="on"]) :where(:visited) { color: #c58af9; }
+
+  /* 読み込み直後、エンジンがサイトの CSS を処理し終えるまでの白いチラつき止め */
+  html[data-utadark="on"][data-utadark-pending] body {
+    background-color: #171717 !important;
+  }
+
+  html[data-utadark="on"] ::selection {
+    background-color: #3d5a98;
+    color: #fff;
+  }
+
+  /* オプション: 画像を少し暗くする */
+  html[data-utadark="on"][data-utadark-dim] :is(img, picture, video, canvas) {
+    filter: brightness(0.85);
+  }
+}
+
+/* ===== 個別調整 ===== */
+@media screen {
+  /* 背景画像の上に文字が載っている要素（engine.js の scanBackdrops が印を付ける）。
+     背景画像を背景色と乗算して暗く沈める。背景色が透明な要素には灰色を敷く */
+  html[data-utadark="on"] [data-utadark-backdrop] {
+    background-blend-mode: multiply !important;
+  }
+  html[data-utadark="on"] [data-utadark-backdrop="fill"] {
+    background-color: #2a2a2a !important;
+  }
+
+  /* 年代別アニメソング特集（/user/anime60_90/ など）：
+     白い角丸枠つきの見出し画像の上に本文を重ねているので、本文は元の暗い色のままにする */
+  html[data-utadark="on"] .midashi + table .txt1 {
+    color: #333 !important;
+  }
+
+  /* ロゴ（紺の文字が暗い背景に沈むので、明暗だけ反転して色相は戻す） */
+  html[data-utadark="on"] img[src*="/logo.png"] {
+    filter: invert(1) hue-rotate(180deg) saturate(1.4);
+  }
+
+  /* ギターコードのダイアグラム（白地の PNG）。明暗だけ反転して色相は戻す */
+  html[data-utadark="on"] img[src*="/img/code/"] {
+    filter: invert(0.9) hue-rotate(180deg);
+  }
+
+  /* ヘッダー右上の「ユーザー登録」「ログイン」アイコン（白地に黒の PNG 背景画像）。
+     反転して白い記号にし、黒くなった地を screen 合成で消す。文字色は反転後に明るくなるよう暗くしておく */
+  html[data-utadark="on"] a:is(.header-myutanet-regist, .header-myutanet-login) {
+    filter: invert(1);
+    mix-blend-mode: screen;
+    color: #1f1f1f !important;
+  }
+}
+
+/* ===== 歌詞の段組み（ダークモードと独立） ===== */
+/* 対象: 歌詞ページの #kashi_area と、動画ページの歌詞（lyrics.js の SELECTORS と揃えること） */
+@media screen and (min-width: 768px) {
+  html[data-utadark-cols] :is(#kashi_area, .movie-page .kashi > .col-12 > div:not([class]):not([id])) {
+    column-gap: 3em;
+    column-rule: 1px solid rgba(128, 128, 128, 0.35);
+    orphans: 2;
+    widows: 2;
+  }
+  html[data-utadark-cols="2"] :is(#kashi_area, .movie-page .kashi > .col-12 > div:not([class]):not([id])) { column-count: 2; }
+  html[data-utadark-cols="3"] :is(#kashi_area, .movie-page .kashi > .col-12 > div:not([class]):not([id])) { column-count: 3; }
+}
