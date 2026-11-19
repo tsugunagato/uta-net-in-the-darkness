@@ -14,7 +14,7 @@
     <label class="row">
       <span class="label">
         ダークモード
-        <small>Alt+Shift+D</small>
+        <small class="shortcut" data-command="toggle-dark"></small>
       </span>
       <input type="checkbox" class="switch" id="enabled">
     </label>
@@ -28,7 +28,7 @@
     <div class="row column">
       <span class="label">
         歌詞の段組み
-        <small>Alt+Shift+L で切り替え</small>
+        <small class="shortcut" data-command="cycle-columns" data-suffix=" で切り替え"></small>
       </span>
       <div class="segmented" role="radiogroup" aria-label="歌詞の段組み">
         <label><input type="radio" name="lyricsColumns" value="off"><span>オフ</span></label>
@@ -40,7 +40,7 @@
     </div>
   </section>
 
-  <footer>非公式の拡張機能です。歌ネットとは関係ありません。</footer>
+  <footer>非公式の拡張機能です。歌ネットとは無関係です。</footer>
 
   <script src="../src/settings.js"></script>
   <script src="popup.js"></script>
