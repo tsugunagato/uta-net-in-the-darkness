@@ -16,8 +16,6 @@
 1. `chrome://extensions` を開き、右上の「デベロッパー モード」をオンにします
 2. 「パッケージ化されていない拡張機能を読み込む」で、このリポジトリのフォルダを選びます
 
-Firefox（121以降）では `about:debugging` →「一時的なアドオンを読み込む」で `manifest.json` を選びます。
-
 ## 仕組み
 
 旧版はページの部品ごとにセレクタを手書きしていたので、対応していないページや部品は白いまま残っていました。新版では、**ページが読み込んだ CSS から色の宣言を読み取り、同じセレクタのダーク版 CSS を自動生成**します。
@@ -68,5 +66,5 @@ scripts/
 
 - テスト：`./scripts/test.sh`（Node があれば Node、なければ macOS 標準の JavaScriptCore で動きます）
 - 動作確認ページ：リポジトリのルートで `python3 -m http.server 8766` を実行し、`http://localhost:8766/test/fixture.html` を開きます（`?off` で変換前の表示、`?cols=2` で段組みの指定）
-- 配布用 zip：`./scripts/build.sh` で `dist/` に出力されます
+- Chrome ウェブストア申請用 zip：`./scripts/build.sh` で `dist/uta-net-in-the-darkness-<version>.zip` に出力されます。再申請のときは `manifest.json` の `version` を上げてから作ります
 - アイコン：`osascript -l JavaScript scripts/make-icons.js icons` で `icons/` の PNG を描き直します（16/32px は三日月のみ、48/128px は音符つき）

@@ -1,5 +1,5 @@
 /* キーボードショートカットの処理。設定を書き換えるだけで、ページへの通信は行わない。 */
-if (typeof importScripts === 'function' && !globalThis.UtaDarkSettings) importScripts('settings.js');
+importScripts('settings.js');
 
 const { DEFAULTS, COLUMN_MODES } = globalThis.UtaDarkSettings;
 
