@@ -63,8 +63,10 @@ test/
 scripts/
   test.sh        テスト実行
   build.sh       配布用 zip の作成
+  make-icons.js  アイコンの描画（macOS の JXA / AppKit）
 ```
 
 - テスト：`./scripts/test.sh`（Node があれば Node、なければ macOS 標準の JavaScriptCore で動きます）
 - 動作確認ページ：リポジトリのルートで `python3 -m http.server 8766` を実行し、`http://localhost:8766/test/fixture.html` を開きます（`?off` で変換前の表示、`?cols=2` で段組みの指定）
 - 配布用 zip：`./scripts/build.sh` で `dist/` に出力されます
+- アイコン：`osascript -l JavaScript scripts/make-icons.js icons` で `icons/` の PNG を描き直します（16/32px は三日月のみ、48/128px は音符つき）
