@@ -1,0 +1,43 @@
+/*
+ * ストア用画像（1280×800 のスクリーンショット、440×280 のタイル）共通のスタイル。
+ *
+ * 見た目の調整は unslop（Damir Sokolovsky, https://github.com/heydamir/unslop, CC BY 4.0）の
+ * 判定基準と数値の目安を参考にした:
+ *   - 地は青みのある墨色の段階（Ink ランプ）、文字は 3 段階（主・副・控えめ）
+ *   - アクセントはアイコンと同じ月明かりの黄色を「オンの状態」にだけ使う
+ *   - グラデーションの光・色つきの影・ピル型ラベル・窓の 3 つの丸は使わない
+ *   - 見出しの太さは 500、余白は 4px 刻み
+ */
+:root {
+  --page: #0b0d14;
+  --card: #11141c;
+  --raised: #1a1e28;
+  --text: #eef0f5;
+  --text-2: #a3a9b8;
+  --text-3: #7a8296;
+  --hairline: rgba(238, 240, 245, 0.08);
+  --accent: #f5d97a;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  width: 1280px;
+  height: 800px;
+  overflow: hidden;
+  background: var(--page);
+  color: var(--text);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+.caption { padding: 48px 64px 0; }
+.caption h1 { margin: 0; font-size: 40px; line-height: 1.25; font-weight: 500; }
+.caption p { margin: 16px 0 0; max-width: 46em; font-size: 18px; line-height: 1.6; color: var(--text-2); }
+
+.windows { position: absolute; left: 64px; right: 64px; bottom: 56px; display: flex; gap: 32px; }
+.window { position: relative; flex: 1; border-radius: 14px; background: var(--card); border: 1px solid var(--hairline); }
+/* はみ出しの切り取りは中身だけ（窓の上に置くラベルを切らないように） */
+.window .view { position: relative; overflow: hidden; border-radius: 13px; }
+.window iframe { position: absolute; left: 0; top: 0; width: 1280px; border: 0; transform-origin: 0 0; }
+.label { position: absolute; top: -32px; left: 0; font-size: 14px; color: var(--text-2); }
+.label.on { color: var(--accent); }
+
+.footnote { position: absolute; right: 64px; bottom: 20px; font-size: 12px; color: var(--text-3); }

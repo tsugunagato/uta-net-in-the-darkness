@@ -1,0 +1,69 @@
+/*
+ * ストア用スクリーンショットの「見本ページ」用 CSS。
+ * 実在サイトの画面やロゴは使わず、一般的な歌詞サイトの明るいデザインを模している。
+ * Bootstrap 風の CSS 変数・枠線・インライン色指定など、エンジンが変換する書き方をあえて混ぜている。
+ */
+:root {
+  --c-white: #fff;
+  --c-text: #222;
+  --c-navy: #23306b;
+  --c-accent: #d0122b;
+  --c-line: #dcdcdc;
+}
+* { box-sizing: border-box; }
+html { background: #fff; }
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: var(--c-text);
+  font: 15px/1.6 "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+a { color: #1a53c5; text-decoration: none; }
+
+.site-header { background: var(--c-white); border-bottom: 1px solid var(--c-line); }
+.site-header .inner { display: flex; align-items: center; gap: 28px; width: 1180px; margin: 0 auto; height: 72px; }
+.brand { font-weight: 800; font-size: 26px; letter-spacing: 0.02em; color: var(--c-navy); }
+.brand span { color: var(--c-accent); }
+.search { flex: 1; display: flex; max-width: 520px; margin-left: auto; }
+.search input { flex: 1; height: 38px; border: 2px solid var(--c-navy); border-right: 0; padding: 0 12px; font: inherit; background: #fff; color: #888; }
+.search button { height: 38px; padding: 0 18px; background: var(--c-navy); color: #fff; border: 0; font: inherit; font-weight: 700; }
+
+.nav { background: var(--c-navy); }
+.nav ul { display: flex; justify-content: space-between; width: 1180px; margin: 0 auto; padding: 0 40px; list-style: none; }
+.nav li { color: #fff; padding: 9px 0; font-weight: 600; font-size: 14px; }
+.subnav { background: #fafafa; border-bottom: 1px solid #e6e6e6; }
+.subnav ul { display: flex; justify-content: center; gap: 46px; margin: 0; padding: 7px 0; list-style: none; font-size: 13px; color: #555; }
+
+.layout { display: grid; grid-template-columns: 1fr 330px; gap: 24px; width: 1180px; margin: 24px auto; }
+.card { background: var(--c-white); border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); }
+
+.song-head { display: flex; gap: 24px; padding: 24px 28px; border-bottom: 1px solid #eee; }
+.jacket { width: 150px; height: 150px; flex: none; border-radius: 4px; background: linear-gradient(135deg, #9fb8e8, #f2c6d8 60%, #ffe3a6); }
+.song-title { margin: 0 0 4px; font-size: 28px; font-weight: 700; }
+.artist { margin: 0 0 12px; font-size: 16px; color: #444; }
+.credit { margin: 0; font-size: 13px; color: #666; line-height: 1.9; }
+.credit a { text-decoration: underline; }
+.badge { display: inline-block; margin-left: 8px; padding: 0 8px; border: 1px solid var(--c-accent); color: var(--c-accent); font-size: 12px; border-radius: 3px; }
+
+.tools { display: flex; gap: 10px; padding: 14px 28px; background: #f7f7f7; border-bottom: 1px solid #eee; }
+.tools span { padding: 6px 16px; background: #fff; border: 1px solid #ccc; border-radius: 3px; font-size: 13px; color: #333; }
+.tools span.primary { background: #555; border-color: #555; color: #fff; }
+
+.lyrics-wrap { padding: 26px 28px 30px; }
+#kashi_area { font-size: 16px; line-height: 26px; }
+
+.side h3 { margin: 0; padding: 12px 16px; font-size: 15px; border-left: 6px solid var(--c-accent); border-bottom: 1px solid #eee; }
+.rank { list-style: none; margin: 0; padding: 0 16px; }
+.rank li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eee; }
+.rank .thumb { width: 46px; height: 46px; border-radius: 3px; flex: none; }
+.rank .t1 { background: linear-gradient(135deg, #c7e3c1, #7fb3d5); }
+.rank .t2 { background: linear-gradient(135deg, #f6d3a8, #e88f8f); }
+.rank .t3 { background: linear-gradient(135deg, #d6cdf0, #8e9fd8); }
+.rank .t4 { background: linear-gradient(135deg, #f1e9b8, #b9d39b); }
+.rank .t5 { background: linear-gradient(135deg, #f0c4dc, #b8a2e0); }
+.rank b { display: block; font-size: 14px; }
+.rank small { color: #777; }
+.rank .no { margin-left: auto; font: italic 800 24px/1 sans-serif; color: #bbb; }
+.side .card + .card { margin-top: 20px; }
+.notice { margin: 16px; padding: 10px 12px; font-size: 13px; }
+

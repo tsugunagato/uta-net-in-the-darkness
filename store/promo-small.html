@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>small promo tile</title>
+<!--
+  小さいプロモーションタイル（440×280）。Chrome ウェブストアのガイドラインに合わせて文字は入れない。
+    - 全面を彩度のある深い紺で塗り、明るい灰色の背景の上でも輪郭がはっきり出るようにする
+    - 歌詞ページを図案化したカードを対角線で「明るい紙／暗い面」に分け、白い画面が暗くなることを見せる
+    - 半分のサイズでも形が分かるよう、要素は大きく少なくする
+-->
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { width: 440px; height: 280px; overflow: hidden; position: relative; background: #1d2a6e; }
+
+  .page { position: absolute; left: 44px; top: 40px; width: 196px; height: 200px; border-radius: 14px; overflow: hidden; }
+  .layer { position: absolute; inset: 0; padding: 26px 24px; }
+  .light { background: #f3efe4; }
+  .dark { background: #151823; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+
+  .title { height: 14px; width: 62%; border-radius: 7px; margin-bottom: 22px; }
+  .line { height: 9px; border-radius: 5px; margin-bottom: 11px; }
+  .gap { height: 11px; }
+  .light .title { background: #2b3778; }
+  .light .line { background: #b9b4a6; }
+  .dark .title { background: #8e98e0; }
+  .dark .line { background: #4a506a; }
+
+  .note { position: absolute; right: 30px; top: 52px; width: 176px; height: 176px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="layer light">
+      <div class="title"></div>
+      <div class="line" style="width:78%"></div><div class="line" style="width:56%"></div><div class="line" style="width:70%"></div>
+      <div class="gap"></div>
+      <div class="line" style="width:64%"></div><div class="line" style="width:82%"></div><div class="line" style="width:48%"></div>
+    </div>
+    <div class="layer dark">
+      <div class="title"></div>
+      <div class="line" style="width:78%"></div><div class="line" style="width:56%"></div><div class="line" style="width:70%"></div>
+      <div class="gap"></div>
+      <div class="line" style="width:64%"></div><div class="line" style="width:82%"></div><div class="line" style="width:48%"></div>
+    </div>
+  </div>
+  <img class="note" src="../icons/128.png" alt="">
+</body>
+</html>

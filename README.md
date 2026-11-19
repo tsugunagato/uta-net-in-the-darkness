@@ -67,4 +67,5 @@ scripts/
 - テスト：`./scripts/test.sh`（Node があれば Node、なければ macOS 標準の JavaScriptCore で動きます）
 - 動作確認ページ：リポジトリのルートで `python3 -m http.server 8766` を実行し、`http://localhost:8766/test/fixture.html` を開きます（`?off` で変換前の表示、`?cols=2` で段組みの指定）
 - Chrome ウェブストア申請用 zip：`./scripts/build.sh` で `dist/uta-net-in-the-darkness-<version>.zip` に出力されます。再申請のときは `manifest.json` の `version` を上げてから作ります
-- アイコン：`osascript -l JavaScript scripts/make-icons.js icons` で `icons/` の PNG を描き直します（16/32px は三日月のみ、48/128px は音符つき）
+- アイコン：`osascript -l JavaScript scripts/make-icons.js icons` で `icons/` の PNG を描き直します
+- ストア用画像：`./scripts/make-store-assets.sh` で `dist/store/` にスクリーンショット 3 枚（1280×800）と小さいプロモーションタイル（440×280）を書き出します（macOS と Google Chrome が必要）。画面は `store/` の見本ページ（架空の曲・歌詞）に本物のエンジンを当てたもので、実在サイトの歌詞や写真は載せていません
